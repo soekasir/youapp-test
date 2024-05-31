@@ -1,0 +1,16 @@
+.main-navigation{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 1rem;
+
+  color: rgba(255, 255, 255, 1);
+  margin-bottom: 1rem;
+  .left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+    cursor: pointer;
+  }
+}

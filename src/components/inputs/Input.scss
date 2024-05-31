@@ -1,0 +1,89 @@
+.main-input{
+  width: 100%;
+  display: flex;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+  align-items : center;
+  overflow: hidden;
+  input{
+    width: 100%;
+    border-radius: 9px;
+    border: none;
+    padding: .5rem;
+    background: rgba(255, 255, 255, 0.06);
+    
+    color: rgba(255, 255, 255, 1);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+  input:focus {
+    border: none;
+    outline: none;
+  }
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.second-input{
+  width: 100%;
+  display: flex;
+  border-radius: 8px;
+  background: rgba(217, 217, 217, 0.06);
+  align-items : center;
+  overflow: hidden;
+  input, select{
+    width: 100%;
+    border-radius: 8px;
+    border: 1px rgba(255, 255, 255, 0.22) solid;
+    padding: .5rem;
+    background: rgba(217, 217, 217, 0.06);
+    
+    color: rgba(255, 255, 255, 1);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 16px;
+    option{
+      color: black;
+    }
+  }
+  input:focus {
+    border: none;
+    outline: none;
+  }
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.input-chip{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+  align-items : center;
+  overflow: hidden;
+  gap: .4rem;
+  color: #FFFFFF;
+  padding: .5rem;
+  input{
+    width: 100%;
+    border: none;
+    padding: .2rem;
+    background: rgba(0, 0, 0, 0);
+    
+    color: rgba(255, 255, 255, 1);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14.52px;
+    text-align: left;
+  }
+  input:focus {
+    border: none;
+    outline: none;
+  }
+}

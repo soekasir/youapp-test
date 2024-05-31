@@ -1,0 +1,32 @@
+.secondary-chips{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: .5rem;
+
+  width: fit-content;
+  height: 36px;
+  padding: .5rem 1rem .5rem 1rem;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.main-chips{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: .5rem;
+  justify-content: space-between;
+  border-radius: 4px;
+
+  width: fit-content;
+  height: 32px;
+  padding: 8px 4px 8px 4px;
+  background: rgba(255, 255, 255, 0.1);
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14.52px;
+  text-align: left;
+
+}

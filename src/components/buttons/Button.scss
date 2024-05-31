@@ -1,0 +1,20 @@
+.main-button{
+  width: 100%;
+  padding: .8rem;
+  border-radius: .5rem;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.36px;
+  letter-spacing: -0.23281481862068176px;
+  text-align: center;
+  &.disable{
+    background: linear-gradient(108.32deg, rgba(98, 205, 203, 0.5) 24.88%, rgba(69, 153, 219, 0.5) 78.49%);
+    color: rgba(255, 255, 255, .5);
+  }
+  &.active{
+    background: linear-gradient(108.32deg, #62CDCB 24.88%, #4599DB 78.49%);
+    color: rgba(255, 255, 255, 1);
+  }
+}
