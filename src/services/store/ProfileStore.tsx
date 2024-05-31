@@ -2,63 +2,81 @@
 
 import { action, makeObservable, observable } from "mobx"
 import { backendApi } from "../BackendApi"
+import moment from "moment"
 
 class ProfileStore{
   
   data:any={
+    email:"johndoe@gmail.com",
+    username:"johndoe123",
     name:"Johndoe",
-    birthday:"1995-08-28",
+    birthday:"08/28/1995",
+    horoscope: "Scorpius",
+    zodiac: "Rat",
     height:"175 cm",
     weigth:"69 kg",
     interest:['Music','Basketball','Fitness','Gymming'],
-    gender: 'Male'
+    gender:""
   }
+
+  access_token=""
 
   constructor(){
     makeObservable(this,{
       data: observable,
-      getHoroscope: action,
       getAge: action,
-      getZodiac: action
+      access_token: observable
     })
   }
 
-  getHoroscope(){
-    return "Virgo"
-  }
-
-  getZodiac(){
-    return "Pig"
+  getDateFromBirthDay(){
+    const split=this.data.birthday.split("/")
+    const dateString=split[2]+'-'+split[0]+'-'+split[1]
+    return dateString
   }
 
   getAge(){
-    return 28
+    let years = moment().diff(this.getDateFromBirthDay(), 'years');
+    return years
   }
 
 
   fetchAndSetProfile(){
-    backendApi.get('api/getProfile').then(res=>{
-      console.log(res)
+    backendApi.get('api/getProfile',{
+      headers:{
+        "x-access-token":this.access_token
+      }
+    }).then((res:any)=>{
+      for(const property in res.data){
+        this.data[property]=res.data[property]
+      }
     })
   }
 
   updateAndSetProfile(data:any){
-    return backendApi.get('api/updateProfile').then(res=>{
-      console.log(res)
+    return backendApi.put('api/updateProfile',{...data,birthday:moment(data.birthday).format('MM/DD/YYYY')},{
+      headers:{
+        "x-access-token":this.access_token
+      }
+    }).then((res:any)=>{
+      for(const property in res.data){
+        this.data[property]=res.data[property]
+      }
     })
   }
 
   updateAndSetInterest(interest:string[]){
-    return backendApi.get('api/updateProfile').then(res=>{
-      console.log(res)
+    return backendApi.put('api/updateProfile',{...this.data,birthday:moment(this.data.birthday).format('MM/DD/YYYY'),interest},{
+      headers:{
+        "x-access-token":this.access_token
+      }
+    }).then((res:any)=>{
+      for(const property in res.data){
+        this.data[property]=res.data[property]
+      }
     })
   }
 
-  createAndSetProfile(){
-    return backendApi.get('api/createProfile').then(res=>{
-      console.log(res)
-    })
-  }
 }
 
 export const profileStore=new ProfileStore();

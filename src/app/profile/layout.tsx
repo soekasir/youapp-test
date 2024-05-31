@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './style.scss'
-import { MainNavigation } from '@/components/navigation/Navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,7 +16,6 @@ export default function Layout({
 }) {
   return (
       <div className='content'>
-        <MainNavigation middle="@johndoe123" right="..."/>
         {children}
       </div>
   )

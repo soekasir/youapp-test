@@ -43,7 +43,7 @@ class RegisterPage extends Component<RegisterPageProps> {
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
     if(form.email.match(regexToValidateEmail)){
-      if(form.password && form.password===form.confirm_password){
+      if(form.password.length>=8 && form.password===form.confirm_password){
         canSubmit=true
       }
     }
@@ -56,13 +56,12 @@ class RegisterPage extends Component<RegisterPageProps> {
       username:this.state.form.username,
       password:this.state.form.password,
     }
-    // backendApi.post('api/register',data).catch((reason)=>{
-    //   alert(reason)
-    // }).then((res)=>{
-    //   console.log(res)
-    //   // this.props.router.push('/profile')
-    // })
-    this.props.router.push('/profile')
+    backendApi.post('api/register',data).catch((reason)=>{
+      alert(reason.message)
+    }).then((res:any)=>{
+      alert(res.message)
+      this.props.router.push('/profile')
+    })
   }
 
   render() {

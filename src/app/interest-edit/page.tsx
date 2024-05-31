@@ -41,10 +41,9 @@ class InterestEdit extends Component<InterestEditProps> {
   }
 
   onClickSave=()=>{
-    // profileStore.updateAndSetInterest(this.state.interest).then(()=>{
-    //   this.props.router.push('/profile')
-    // })
-    this.props.router.push('/profile')
+    profileStore.updateAndSetInterest(this.state.interest).then(()=>{
+      this.props.router.push('/profile')
+    })
   }
 
   render() {

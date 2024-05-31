@@ -6,6 +6,7 @@ import { MainInput } from '@/components/inputs/Input'
 import { useRouter } from 'next/navigation'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { backendApi } from '@/services/BackendApi'
+import { profileStore } from '@/services/store/ProfileStore'
 
 interface LoginPageProps{
   router: AppRouterInstance
@@ -14,9 +15,7 @@ interface LoginPageProps{
 class LoginPage extends Component<LoginPageProps> {
   state={
     form:{
-      username_email:"",
       email:"",
-      username:"",
       password:""
     },
     canSubmit:false
@@ -39,32 +38,29 @@ class LoginPage extends Component<LoginPageProps> {
 
   validateForm=(form:any)=>{
     let canSubmit=false;
+    const regexToValidateEmail=(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
 
-    if(form.username_email && form.password){
+    if(form.email.match(regexToValidateEmail) && form.password.length>=8){
       canSubmit=true
     }
     return canSubmit
   }
 
   onSubmit=()=>{
-    const regexToValidateEmail=(
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-    const isEmail=this.state.form.username_email.match(regexToValidateEmail)
     let data:any={
       password:this.state.form.password,
+      email:this.state.form.email,
+      username:this.state.form.email
     }
-    if(isEmail){
-      data.email=this.state.form.username_email
-    }else{
-      data.username=this.state.form.username_email
-    }
-    // backendApi.post('api/login',data).catch((reason)=>{
-    //   alert(reason)
-    // }).then((res)=>{
-    //   console.log(res)
-    //   this.props.router.push('/profile')
-    // })
+    backendApi.post('api/login',data).catch((reason)=>{
+      alert(reason.message)
+    }).then((res:any)=>{
+      console.log(res.message)
+      profileStore.access_token=res.access_token
+      this.props.router.push('/profile')
+    })
     this.props.router.push('/profile')
   }
 
@@ -75,7 +71,7 @@ class LoginPage extends Component<LoginPageProps> {
             <div className='title'>
               Login
             </div>
-            <MainInput placeholder='Enter Username/Email' onChange={(event:any)=>this.changeForm(event,'username_email')}/>
+            <MainInput placeholder='Enter Email' onChange={(event:any)=>this.changeForm(event,'email')}/>
             <MainInput placeholder='Enter Password' type="password" onChange={(event:any)=>this.changeForm(event,'password')}/>
           </div>
           <div className='button'>

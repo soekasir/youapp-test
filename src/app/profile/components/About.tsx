@@ -18,10 +18,19 @@ export default class About extends Component {
   onChange=(event: ChangeEvent<HTMLInputElement>,key:string)=>{
     let newData={...this.state.data}
     newData[key]=event.target.value
+    if(key==='birthday'){
+      let birthday=moment(event.target.value).format('MM/DD/YYYY')
+      newData[key]=birthday
+    }
     this.setState({
       data:newData
     })
-    // profileStore.data[key]=event.target.value
+  }
+
+  getDateFromBirthDay(){
+    const split=this.state.data.birthday.split("/")
+    const dateString=split[2]+'-'+split[0]+'-'+split[1]
+    return dateString
   }
 
   editingComponent=()=>{
@@ -53,16 +62,16 @@ export default class About extends Component {
         <div className='form'>
           <div>Birthday:</div>
           <div className='input'>
-            <SecondInput type="date" value={this.state.data.birthday} onChange={(event:any)=>this.onChange(event,'birthday')}/>
+            <SecondInput type="date" value={this.getDateFromBirthDay()} onChange={(event:any)=>this.onChange(event,'birthday')}/>
           </div>
         </div>
         <div className='form'>
           <div>Horoscope:</div>
-          <div className='input'><SecondInput disabled value={profileStore.getHoroscope()} placeholder="--"/></div>
+          <div className='input'><SecondInput disabled value={profileStore.data.horoscope} placeholder="--"/></div>
         </div>
         <div className='form'>
           <div>Zodiac:</div>
-          <div className='input'><SecondInput disabled value={profileStore.getZodiac()} placeholder="--"/></div>
+          <div className='input'><SecondInput disabled value={profileStore.data.zodiac} placeholder="--"/></div>
         </div>
         <div className='form'>
           <div>Height:</div>
@@ -97,15 +106,15 @@ export default class About extends Component {
       <div className='filled-profile'>
         <div className='form'>
           <div>Birthday:</div>
-          <div className='value'>{moment(profileStore.data.birthday).format('DD/MM/YYYY')} (Age {profileStore.getAge().toString()})</div>
+          <div className='value'>{moment(profileStore.getDateFromBirthDay()).format('DD/MM/YYYY')} (Age {profileStore.getAge().toString()})</div>
         </div>
         <div className='form'>
           <div>Horoscope:</div>
-          <div className='value'>{profileStore.getHoroscope()}</div>
+          <div className='value'>{profileStore.data.horoscope}</div>
         </div>
         <div className='form'>
           <div>Zodiac:</div>
-          <div className='value'>{profileStore.getZodiac()}</div>
+          <div className='value'>{profileStore.data.zodiac}</div>
         </div>
         <div className='form'>
           <div>Height:</div>
@@ -126,7 +135,7 @@ export default class About extends Component {
   }
 
   onClickSave=()=>{
-    // profileStore.updateAndSetProfile(this.state.data)
+    profileStore.updateAndSetProfile(this.state.data)
   }
 
   render() {

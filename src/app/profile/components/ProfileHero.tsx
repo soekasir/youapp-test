@@ -23,8 +23,8 @@ export default class ProfileHero extends Component {
           }
           {profileStore.data.birthday &&
             <div className='zodiac'>
-              <SecondaryChip icon={<HoroscopeIcon/>}>{profileStore.getHoroscope()}</SecondaryChip>
-              <SecondaryChip icon={<ZodiacIcon/>}>{profileStore.getZodiac()}</SecondaryChip>
+              <SecondaryChip icon={<HoroscopeIcon/>}>{profileStore.data.horoscope}</SecondaryChip>
+              <SecondaryChip icon={<ZodiacIcon/>}>{profileStore.data.zodiac}</SecondaryChip>
             </div>
           }
         </div>
