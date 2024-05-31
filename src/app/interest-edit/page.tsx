@@ -40,6 +40,13 @@ class InterestEdit extends Component<InterestEditProps> {
 
   }
 
+  deleteInterest(interest:string){
+    let newInterest=[...this.state.interest].filter((interest2)=>interest!==interest2)
+    this.setState({
+      interest:newInterest
+    })
+  }
+
   onClickSave=()=>{
     profileStore.updateAndSetInterest(this.state.interest).then(()=>{
       this.props.router.push('/profile')
@@ -60,8 +67,8 @@ class InterestEdit extends Component<InterestEditProps> {
           <div className='input'>
             <InputChip onChange={(event:any)=>this.changeNewInterest(event)} onKeyDown={this.handleKeyDown} value={this.state.newInterest}>
               {
-                this.state.interest.map((interest:string,index:number)=>{
-                  return <MainChip key={interest} icon={<CancelIcon/>}>{interest}</MainChip>
+                this.state.interest.map((interest:string)=>{
+                  return <MainChip key={interest} icon={<div onClick={()=>this.deleteInterest(interest)}><CancelIcon/></div>}>{interest}</MainChip>
                 })
               }
             </InputChip>

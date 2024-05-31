@@ -61,7 +61,6 @@ class LoginPage extends Component<LoginPageProps> {
       profileStore.access_token=res.access_token
       this.props.router.push('/profile')
     })
-    this.props.router.push('/profile')
   }
 
   render() {
